@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/ui/navbar";
+import { ThemeProvider } from "@/components/theme-provider";
 
 // Load Roboto font
 const roboto = Roboto({
@@ -21,10 +22,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${roboto.variable} font-roboto antialiased`}>
-        <Navbar />
-        {children}
+    <html lang="en" suppressHydrationWarning>
+      <head />
+      <body className={`${roboto.variable} font-roboto antialiased bg-white text-blue-900 dark:bg-slate-800 dark:text-slate-100`}>
+        <ThemeProvider attribute="class" defaultTheme="light">
+          <div className="min-h-screen transition-colors duration-300">
+            <Navbar />
+            {children}
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );
